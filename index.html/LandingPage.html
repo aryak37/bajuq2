@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePalestine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            /* max height used together with aspect-ratio to control visual size */
+            --product-image-max-height: 420px;
+        }
+
+        /* Global dark background */
+        body {
+            background-color: #0A0A0F;
+            color: #e6e6e6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #0A0A0F;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            background-color: #0097A7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #0A0A0F;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #e6e6e6;
+        }
+
+        .menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #e6e6e6;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .menu a:hover {
+            color: #0097A7;
+        }
+
+        /* Main Content Styles */
+        main {
+            margin-top: 100px;
+            padding: 2rem 5%;
+            min-height: calc(100vh - 180px);
+        }
+
+        .products {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: #7A00FF;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Use a consistent 3:4 aspect ratio for product images (portrait-friendly) */
+        .product-image {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 3 / 4; /* modern browsers will enforce 3:4 */
+            object-fit: cover; /* crop while preserving aspect ratio */
+            object-position: center; /* keep focus centered */
+            background-color: #121217;
+            display: block;
+            max-height: var(--product-image-max-height);
+        }
+
+        .product-info {
+            padding: 1rem;
+        }
+
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #e6e6e6;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            color: #e6e6e6;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .buy-button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #0097A7;
+            color: #e6e6e6;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .buy-button:hover {
+            background-color: #0097A7;
+        }
+
+        .cart-button {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #0097A7;
+            color: #e6e6e6;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+            margin-top: 0.8rem;
+        }
+
+        .cart-button:hover {
+            background-color: #0097A7;
+        }
+
+        /* (selector removed) */
+
+        /* Footer Styles */
+        footer {
+            background-color: #0A0A0F;
+            color: #cfcfcf;
+            padding: 4rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .footer-section h3 {
+            color: #0097A7;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section p {
+            color: #bdbdbd;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #bdbdbd;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #90caf9;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #bdbdbd;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #0097A7;
+        }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            text-align: center;
+            color: #999;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 900px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .products {
+                grid-template-columns: 1fr;
+            }
+
+            .menu {
+                gap: 1rem;
+            }
+
+            .brand-name {
+                font-size: 1.2rem;
+            }
+            /* On small screens, keep aspect ratio but limit max height to avoid very tall images */
+            .product-image {
+                max-height: 320px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="brand">
+                <div class="logo">GP</div>
+                <div class="brand-name">GamePalestine</div>
+            </div>
+            <div>
+                <div class="menu">
+                    <a href="#home">Home</a>
+                    <a href="#products">Produk</a>
+                    <a href="#contact">Kontak</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div class="products">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <a href="https://cdn1.epicgames.com/offer/1d4d85b1051e41ee8f1a099e99d59f3f/EGS_EASPORTSFC26StandardEdition_EACANADA_S2_1200x1600-effee280c00b9890a0c5249d4b0e5c97" target="_blank" rel="noopener">
+                    <img src="https://cdn1.epicgames.com/offer/1d4d85b1051e41ee8f1a099e99d59f3f/EGS_EASPORTSFC26StandardEdition_EACANADA_S2_1200x1600-effee280c00b9890a0c5249d4b0e5c97" alt="EA SPORTS FC 26" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">EA SPORTS FC™ 26</h3>
+                    <p class="product-price">Rp 799,000</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(1, 'EA SPORTS FC™ 26', 799000)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <a href="https://source.unsplash.com/random/800x1200/?smartphone" target="_blank" rel="noopener">
+                    <img src="https://m.media-amazon.com/images/M/MV5BODA2YzRkODktNTIwYi00ZDk1LThlMTAtYzE4MGEyODM4NzZlXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg" alt="Smartphone" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">Ghost of Yōtei™</h3>
+                    <p class="product-price">Rp 1,029,000</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(2, 'Ghost of Yōtei™', 1029000)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <a href="https://source.unsplash.com/random/800x1200/?headphones" target="_blank" rel="noopener">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Monster_Hunter_Wilds_cover.png/250px-Monster_Hunter_Wilds_cover.png" alt="Headphones" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">Monster Hunter Wilds</h3>
+                    <p class="product-price">Rp 869,000</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(3, 'Monster Hunter Wilds', 869000)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="product-card">
+                <a href="https://source.unsplash.com/random/800x1200/?smartwatch" target="_blank" rel="noopener">
+                    <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/3180070/d9a48e5676f73cb100e3dfcf7b2b5e68876b3750/capsule_616x353.jpg?t=1761654689" alt="Smartwatch" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">No, I'm not a Human</h3>
+                    <p class="product-price">Rp 130,999</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(4, 'No, I\'m not a Human', 130999)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Product 5 -->
+            <div class="product-card">
+                <a href="https://source.unsplash.com/random/800x1200/?camera" target="_blank" rel="noopener">
+                    <img src="https://images.squarespace-cdn.com/content/v1/606d4bb793879d12d807d4c8/1b547f53-e6f9-461e-b9df-0104e04726b5/new-bg.jpg" alt="Camera" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">Hollow Knight: Silksong</h3>
+                    <p class="product-price">Rp 165,999</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(5, 'Hollow Knight: Silksong', 165999)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+
+            <!-- Product 6 -->
+            <div class="product-card">
+                <a href="https://source.unsplash.com/random/800x1200/?speaker" target="_blank" rel="noopener">
+                    <img src="https://cdn1.epicgames.com/offer/14a28903e3d14bd5aa3e6dbf10868126/EN_EGST_StorePortrait_1200x1600_1200x1600-a010fb65414cbbc48e055d1f6eac41b8" alt="Speaker" class="product-image">
+                </a>
+                <div class="product-info">
+                    <h3 class="product-name">Assassin's Creed Shadows</h3>
+                    <p class="product-price">Rp 799,000</p>
+                    <button class="buy-button">Beli Sekarang</button>
+                    <button class="cart-button" onclick="addToCart(6, 'Assassin\'s Creed Shadows', 799000)">Tambahkan Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+   <footer>
+        <div class="footer-content">
+            <!-- About Section -->
+            <div class="footer-section">
+                <h3>Tentang GamePalestine</h3>
+                <p>GamePalestine adalah marketplace terpercaya yang menyediakan berbagai video game dengan harga terbaik.</p>
+                <div class="social-links">
+                    <a href="#" title="Facebook">📱</a>
+                    <a href="#" title="Twitter">💬</a>
+                    <a href="#" title="Instagram">📸</a>
+                    <a href="#" title="LinkedIn">💼</a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Produk</a></li>
+                    <li><a href="#about">Tentang Kami</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </div>
+
+            <!-- Customer Service -->
+            <div class="footer-section">
+                <h3>Layanan Pelanggan</h3>
+                <ul class="footer-links">
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#shipping">Pengiriman</a></li>
+                    <li><a href="#returns">Pengembalian</a></li>
+                    <li><a href="#track-order">Lacak Pesanan</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="footer-section">
+                <h3>Hubungi Kami</h3>
+                <p>📍 Jl. X RPL 3, Malang</p>
+                <p>📞 +62 123 4567 890</p>
+                <p>✉️ info@mymarket.com</p>
+            </div>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="footer-bottom">
+            <p>© 2025 GamePalestine. Hak Cipta Dilindungi.</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Fungsi untuk menambahkan produk ke keranjang
+        function addToCart(productId, productName, productPrice) {
+            // Ambil keranjang dari localStorage
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Cek apakah produk sudah ada di keranjang
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                // Jika sudah ada, tambah kuantitasnya
+                existingItem.quantity += 1;
+            } else {
+                // Jika belum ada, tambahkan produk baru
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+            
+            // Simpan ke localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    </script>
+</body>
+</html>
